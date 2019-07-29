@@ -3,9 +3,9 @@ layout: post
 title: Welcome to Chiha
 author: Chiha Park
 date: '2019-07-19 14:35:23 +0530'
-category: personal
+category: work
 summary: First Post
-thumbnail: posts/hello.jpg
+thumbnail: posts/postgresql.jpg
 ---
 
 # PostgreSQL 설치
