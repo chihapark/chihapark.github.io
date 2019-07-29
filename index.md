@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: about_me
 permalink: /
 ---
 

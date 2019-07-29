@@ -1,4 +1,4 @@
-title: devloper chiha
+title: Devloper Chiha
 subtitle: 개발자 공부 공간
 description: >- # this means to ignore newlines until "baseurl:"
   A Jekyll Theme Built For Developers
@@ -6,12 +6,12 @@ baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://devlopr.netlify.com" # the base hostname & protocol for your site, e.g. http://example.com
 
 author_logo: profile.png
-disqus_shortname: sujay-kundu  #for comments using disqus
-author: devlopr
-author_bio: Hello, my name is John Doe.I am an award winning Full Stack Web Developer and UI/UX Javascript specialist
-author_email: "john@devlopr.com"
+disqus_shortname: chiha park  #for comments using disqus
+author: Developer
+author_bio: Hello, my name is Chiha Park.I am an Software Developer and Cloud/DB Engineer 
+author_email: "chiha3556@gmail.com"
 author_location: Seoul
-author_website_url: "https://johndoe.com"
+author_website_url: "https://chihapark.github.io"
 
 # social links
 twitter_username: yourusername
