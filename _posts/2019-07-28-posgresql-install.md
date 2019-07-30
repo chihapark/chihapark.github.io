@@ -8,6 +8,8 @@ summary: First Post
 thumbnail: posts/postgresql.jpg
 ---
 
+
+
 # PostgreSQL 설치
 
 - PostgreSQL 9.6 버전을 기준으로 Centos 7.4에 설치합니다.
