@@ -1,9 +1,56 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.6">Jekyll</generator><link href="http://0.0.0.0:50001/feed.xml" rel="self" type="application/atom+xml" /><link href="http://0.0.0.0:50001/" rel="alternate" type="text/html" /><updated>2019-07-31T05:30:20+00:00</updated><id>http://0.0.0.0:50001/feed.xml</id><title type="html">Devloper Chiha</title><subtitle>A Jekyll Theme Built For Developers</subtitle><author><name>Developer</name></author><entry><title type="html">PostgreSQL Installation</title><link href="http://0.0.0.0:50001/work/2019/07/28/posgresql-install.html" rel="alternate" type="text/html" title="PostgreSQL Installation" /><published>2019-07-28T18:30:00+00:00</published><updated>2019-07-28T18:30:00+00:00</updated><id>http://0.0.0.0:50001/work/2019/07/28/posgresql-install</id><content type="html" xml:base="http://0.0.0.0:50001/work/2019/07/28/posgresql-install.html">&lt;h1 id=&quot;postgresql-설치&quot;&gt;PostgreSQL 설치&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.6">Jekyll</generator><link href="http://0.0.0.0:50001/feed.xml" rel="self" type="application/atom+xml" /><link href="http://0.0.0.0:50001/" rel="alternate" type="text/html" /><updated>2019-07-31T06:52:41+00:00</updated><id>http://0.0.0.0:50001/feed.xml</id><title type="html">Devloper Chiha</title><subtitle>A Jekyll Theme Built For Developers</subtitle><author><name>Developer</name></author><entry><title type="html">PostgreSQL Backup</title><link href="http://0.0.0.0:50001/postgresql/2019/07/29/postgresql-backup.html" rel="alternate" type="text/html" title="PostgreSQL Backup" /><published>2019-07-29T18:30:00+00:00</published><updated>2019-07-29T18:30:00+00:00</updated><id>http://0.0.0.0:50001/postgresql/2019/07/29/postgresql-backup</id><content type="html" xml:base="http://0.0.0.0:50001/postgresql/2019/07/29/postgresql-backup.html">&lt;p&gt;​&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;postgresql-백업&quot;&gt;PostgreSQL 백업&lt;/h1&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;pg_basebackup을-이용한-백업&quot;&gt;PG_BASEBACKUP을 이용한 백업&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;/data/PGDATABASE/backup 경로에 백업 파일 저장&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;pgsys user를 이용한 백업&lt;/p&gt;
+
+    &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;1--pg_hbaconf-에서-pgsys에게-replication-권한-설정&quot;&gt;1.  pg_hba.conf 에서 pgsys에게 replication 권한 설정&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;pg_hba.conf 파일에 가장 아래 한줄 추가
+
+# TYPE  DATABASE        USER            ADDRESS                 METHOD
+...
+local   replication     pgsys                                   trust
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;2-postgresqlconf-에서-wal-관련-설정-변경&quot;&gt;2. postgresql.conf 에서 wal 관련 설정 변경&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;max_wal_senders = 1
+wal_level = replica
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;3-pg_basebackup-실행&quot;&gt;3. pg_basebackup 실행&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;pg_basebackup --pgdata=&quot;/data/PGDATABASE/backup&quot; --format=&quot;t&quot; -X fetch --gzip --progress --verbose --username=&quot;pgsys&quot; --port=&quot;5432&quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Chiha Park</name></author><category term="PostgreSQL" /><summary type="html">​ PostgreSQL 백업 PG_BASEBACKUP을 이용한 백업 /data/PGDATABASE/backup 경로에 백업 파일 저장 pgsys user를 이용한 백업 1. pg_hba.conf 에서 pgsys에게 replication 권한 설정 pg_hba.conf 파일에 가장 아래 한줄 추가 # TYPE DATABASE USER ADDRESS METHOD ... local replication pgsys trust 2. postgresql.conf 에서 wal 관련 설정 변경 max_wal_senders = 1 wal_level = replica 3. pg_basebackup 실행 pg_basebackup --pgdata=&quot;/data/PGDATABASE/backup&quot; --format=&quot;t&quot; -X fetch --gzip --progress --verbose --username=&quot;pgsys&quot; --port=&quot;5432&quot;</summary></entry><entry><title type="html">PostgreSQL Installation</title><link href="http://0.0.0.0:50001/postgresql/2019/07/28/posgresql-install.html" rel="alternate" type="text/html" title="PostgreSQL Installation" /><published>2019-07-28T18:30:00+00:00</published><updated>2019-07-28T18:30:00+00:00</updated><id>http://0.0.0.0:50001/postgresql/2019/07/28/posgresql-install</id><content type="html" xml:base="http://0.0.0.0:50001/postgresql/2019/07/28/posgresql-install.html">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;postgresql-설치&quot;&gt;PostgreSQL 설치&lt;/h1&gt;
 
 &lt;ul&gt;
   &lt;li&gt;PostgreSQL 9.6 버전을 기준으로 Centos 7.4에 설치합니다.&lt;/li&gt;
   &lt;li&gt;DB Engine 디렉토리 : /PG/PGDATABASE&lt;/li&gt;
-  &lt;li&gt;DB DATA 디렉토리: /data&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;DB DATA 디렉토리: /data&lt;/p&gt;
+
+    &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+  &lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&quot;1-postgresql-파일-다운로드&quot;&gt;1. PostgreSQL 파일 다운로드&lt;/h2&gt;
@@ -11,6 +58,8 @@
 &lt;ul&gt;
   &lt;li&gt;https://www.enterprisedb.com/download-postgresql-binaries 사이트에서 binary 파일 다운로드&lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;p&gt;​    &lt;br /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;2-디렉토리-생성&quot;&gt;2. 디렉토리 생성&lt;/h2&gt;
 
@@ -21,6 +70,8 @@ mkdir -p /data/PGDATABASE/arch      # PostgesSQL Archiving 영역
 mkdir -p /data/PGDATABASE/TS01      # PostgreSQL Table Space 영역
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
 &lt;h2 id=&quot;3-kernel-parameter-설정&quot;&gt;3. Kernel Parameter 설정&lt;/h2&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;RAM 16GB 기준
@@ -28,6 +79,8 @@ sysctl -w kernel.shmmax=17179869184   # 공유 메모리 세그먼트의 최대 
 sysctl -w kernel.shmall=4194304    # 특정 시점에 시스템에서 사용 가능한 공유 메모리의 최대 크기 (페이지 단위)를 설정하는데 사용
 sysctl -w vm.overcommit_memory=2   # Memory Overcommit 을 방지
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;​    &lt;br /&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;4-os-user-생성-및-디렉토리-권한-설정&quot;&gt;4. OS User 생성 및 디렉토리 권한 설정&lt;/h3&gt;
 
@@ -49,6 +102,8 @@ export PGLOCALEDIR=$PGHOME/share/locale
 저장 후 source ~/.bash_profile
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
+&lt;p&gt;​    &lt;br /&gt;&lt;/p&gt;
+
 &lt;h3 id=&quot;5-data-영역-disk-할당&quot;&gt;5. DATA 영역 DISK 할당&lt;/h3&gt;
 
 &lt;ul&gt;
@@ -63,20 +118,28 @@ mount -t xfs /dev/datavg/data /data   # /data Path에 Mount
 df -h						# data PATH에 MOUNT 되었는지 확인
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
+&lt;p&gt;​    &lt;br /&gt;&lt;/p&gt;
+
 &lt;h3 id=&quot;6-postgresql-설치&quot;&gt;6. PostgreSQL 설치&lt;/h3&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;tar -zxvf postgresql-9.6.14-2-linux-x64-binaries.tar.gz -C /PG/PGDATABASE
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;​    &lt;br /&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;7-initdb-실행-db-user로-실행&quot;&gt;7. Initdb 실행 (DB USER로 실행)&lt;/h3&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;initdb --pgdata=/data/PGDATABASE/data/pg --xlogdir=/data/PGDATABASE/pg_xlog --encoding='UTF8' --locale='C' --username='pgsys'
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
+&lt;p&gt;​    &lt;br /&gt;&lt;/p&gt;
+
 &lt;h3 id=&quot;8-postgresql-start-db-user로-실행&quot;&gt;8. PostgreSQL START (DB USER로 실행)&lt;/h3&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;pg_ctl start
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;​    &lt;br /&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;9-postgresql-기본-setting--db-user로-실행&quot;&gt;9. PostgreSQL 기본 Setting  (DB USER로 실행)&lt;/h3&gt;
 
@@ -91,4 +154,4 @@ create tablespace TBS01 OWNER &quot;pgadmin&quot; location '/data/PGDATABASE/TS0
 exit로 bash로 나간 후
 # Database 생성
 createdb -p 5432 -D tbs01 PGDATABASE -O pgadmin
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Chiha Park</name></author><category term="work" /><summary type="html">PostgreSQL 설치 PostgreSQL 9.6 버전을 기준으로 Centos 7.4에 설치합니다. DB Engine 디렉토리 : /PG/PGDATABASE DB DATA 디렉토리: /data 1. PostgreSQL 파일 다운로드 https://www.enterprisedb.com/download-postgresql-binaries 사이트에서 binary 파일 다운로드 2. 디렉토리 생성 mkdir -p /PG/PGDATABASE # PostgreSQL Engine 영역 mkdir -p /data/PGDATABASE/data/pg # PostgreSQL Data 영역 mkdir -p /data/PGDATABASE/pg_xlog # PostgreSQL xlog 영역 (10버전 이후는 wal 영역) mkdir -p /data/PGDATABASE/arch # PostgesSQL Archiving 영역 mkdir -p /data/PGDATABASE/TS01 # PostgreSQL Table Space 영역 3. Kernel Parameter 설정 RAM 16GB 기준 sysctl -w kernel.shmmax=17179869184 # 공유 메모리 세그먼트의 최대 크기(바이트 단위)를 정의 sysctl -w kernel.shmall=4194304 # 특정 시점에 시스템에서 사용 가능한 공유 메모리의 최대 크기 (페이지 단위)를 설정하는데 사용 sysctl -w vm.overcommit_memory=2 # Memory Overcommit 을 방지 4. OS User 생성 및 디렉토리 권한 설정 useradd pgadmin # USER 추가 chown -R pgadmin /PG/PGDATABASE /data/PGDATABASE usermod -d /PG/PGDATABASE pgadmin su - pgadmin vi ~/.bash_profile export PGHOME=/PG/PGDATABASE/pgsql export PATH=$PGHOME/bin:$PATH export PGDATA=/data/PGDATABASE/data/pg export PGDATABASE=PGDATABASE export PGUSER=pgsys export PGPORT=5432 export PGLOCALEDIR=$PGHOME/share/locale 저장 후 source ~/.bash_profile 5. DATA 영역 DISK 할당 DATA 영역에 추가 디스크 할당을 하지 않을 시에는 SKIP exit # root 권한으로 돌아와서 vgcreate datavg /dev/sdb # Volume Group 생성 (DATA 영역 디스크가 sdb로 붙어 있을 경우) lvcreate -l 100%FREE -n data datavg # Volume Group에 남은 영역 LV에 지정 mkfs.xfs /dev/datavg/data # CentOS 7버전이므로 xfs로 FileSystem 설치 mount -t xfs /dev/datavg/data /data # /data Path에 Mount df -h # data PATH에 MOUNT 되었는지 확인 6. PostgreSQL 설치 tar -zxvf postgresql-9.6.14-2-linux-x64-binaries.tar.gz -C /PG/PGDATABASE 7. Initdb 실행 (DB USER로 실행) initdb --pgdata=/data/PGDATABASE/data/pg --xlogdir=/data/PGDATABASE/pg_xlog --encoding='UTF8' --locale='C' --username='pgsys' 8. PostgreSQL START (DB USER로 실행) pg_ctl start 9. PostgreSQL 기본 Setting (DB USER로 실행) psql -d postgres # USER 생성 CREATE USER pgadmin WITH SUPERUSER CREATEDB CREATEROLE INHERIT LOGIN PASSWORD 'password001!'; # Tablespace 생성 create tablespace TBS01 OWNER &quot;pgadmin&quot; location '/data/PGDATABASE/TS01'; exit로 bash로 나간 후 # Database 생성 createdb -p 5432 -D tbs01 PGDATABASE -O pgadmin</summary></entry></feed>
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Chiha Park</name></author><category term="PostgreSQL" /><summary type="html">PostgreSQL 설치 PostgreSQL 9.6 버전을 기준으로 Centos 7.4에 설치합니다. DB Engine 디렉토리 : /PG/PGDATABASE DB DATA 디렉토리: /data 1. PostgreSQL 파일 다운로드 https://www.enterprisedb.com/download-postgresql-binaries 사이트에서 binary 파일 다운로드 ​ 2. 디렉토리 생성 mkdir -p /PG/PGDATABASE # PostgreSQL Engine 영역 mkdir -p /data/PGDATABASE/data/pg # PostgreSQL Data 영역 mkdir -p /data/PGDATABASE/pg_xlog # PostgreSQL xlog 영역 (10버전 이후는 wal 영역) mkdir -p /data/PGDATABASE/arch # PostgesSQL Archiving 영역 mkdir -p /data/PGDATABASE/TS01 # PostgreSQL Table Space 영역 3. Kernel Parameter 설정 RAM 16GB 기준 sysctl -w kernel.shmmax=17179869184 # 공유 메모리 세그먼트의 최대 크기(바이트 단위)를 정의 sysctl -w kernel.shmall=4194304 # 특정 시점에 시스템에서 사용 가능한 공유 메모리의 최대 크기 (페이지 단위)를 설정하는데 사용 sysctl -w vm.overcommit_memory=2 # Memory Overcommit 을 방지 ​ 4. OS User 생성 및 디렉토리 권한 설정 useradd pgadmin # USER 추가 chown -R pgadmin /PG/PGDATABASE /data/PGDATABASE usermod -d /PG/PGDATABASE pgadmin su - pgadmin vi ~/.bash_profile export PGHOME=/PG/PGDATABASE/pgsql export PATH=$PGHOME/bin:$PATH export PGDATA=/data/PGDATABASE/data/pg export PGDATABASE=PGDATABASE export PGUSER=pgsys export PGPORT=5432 export PGLOCALEDIR=$PGHOME/share/locale 저장 후 source ~/.bash_profile ​ 5. DATA 영역 DISK 할당 DATA 영역에 추가 디스크 할당을 하지 않을 시에는 SKIP exit # root 권한으로 돌아와서 vgcreate datavg /dev/sdb # Volume Group 생성 (DATA 영역 디스크가 sdb로 붙어 있을 경우) lvcreate -l 100%FREE -n data datavg # Volume Group에 남은 영역 LV에 지정 mkfs.xfs /dev/datavg/data # CentOS 7버전이므로 xfs로 FileSystem 설치 mount -t xfs /dev/datavg/data /data # /data Path에 Mount df -h # data PATH에 MOUNT 되었는지 확인 ​ 6. PostgreSQL 설치 tar -zxvf postgresql-9.6.14-2-linux-x64-binaries.tar.gz -C /PG/PGDATABASE ​ 7. Initdb 실행 (DB USER로 실행) initdb --pgdata=/data/PGDATABASE/data/pg --xlogdir=/data/PGDATABASE/pg_xlog --encoding='UTF8' --locale='C' --username='pgsys' ​ 8. PostgreSQL START (DB USER로 실행) pg_ctl start ​ 9. PostgreSQL 기본 Setting (DB USER로 실행) psql -d postgres # USER 생성 CREATE USER pgadmin WITH SUPERUSER CREATEDB CREATEROLE INHERIT LOGIN PASSWORD 'password001!'; # Tablespace 생성 create tablespace TBS01 OWNER &quot;pgadmin&quot; location '/data/PGDATABASE/TS01'; exit로 bash로 나간 후 # Database 생성 createdb -p 5432 -D tbs01 PGDATABASE -O pgadmin</summary></entry></feed>
