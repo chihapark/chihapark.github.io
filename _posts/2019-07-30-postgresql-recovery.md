@@ -11,7 +11,7 @@ tag_name: PostgreSQL
 
 <br>
 
-# PostgreSQL Recovery
+# PostgreSQL 복구 (Recovery)
 
 <br>
 

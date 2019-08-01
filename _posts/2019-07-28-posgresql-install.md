@@ -11,7 +11,7 @@ tag_name: PostgreSQL
 
 <br>
 
-# PostgreSQL 설치
+# PostgreSQL 설치 (install)
 
 - PostgreSQL 9.6 버전을 기준으로 Centos 7.4에 설치합니다.
 - DB Engine 디렉토리 : /PG/PGDATABASE

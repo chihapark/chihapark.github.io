@@ -13,7 +13,7 @@ tag_name: PostgreSQL
 
  <br>
 
-# PostgreSQL 백업
+# PostgreSQL 백업 (Backup)
 
 <br>
 
