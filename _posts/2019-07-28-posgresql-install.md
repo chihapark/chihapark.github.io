@@ -6,6 +6,7 @@ date: '2019-07-29 00:00:00 +0530'
 category: PostgreSQL
 summary: PostgreSQL
 thumbnail: posts/postgresql.jpg
+tag_name: PostgreSQL
 ---
 
 <br>
