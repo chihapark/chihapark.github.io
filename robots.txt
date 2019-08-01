@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://chihapark.github.io/sitemap.xml
