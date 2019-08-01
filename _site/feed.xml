@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.6">Jekyll</generator><link href="http://0.0.0.0:50001/feed.xml" rel="self" type="application/atom+xml" /><link href="http://0.0.0.0:50001/" rel="alternate" type="text/html" /><updated>2019-08-01T02:11:33+00:00</updated><id>http://0.0.0.0:50001/feed.xml</id><title type="html">Devloper Chiha</title><subtitle>A Jekyll Theme Built For Developers</subtitle><author><name>Developer</name></author><entry><title type="html">PostgreSQL Backup</title><link href="http://0.0.0.0:50001/postgresql/2019/07/29/postgresql-backup.html" rel="alternate" type="text/html" title="PostgreSQL Backup" /><published>2019-07-29T18:30:00+00:00</published><updated>2019-07-29T18:30:00+00:00</updated><id>http://0.0.0.0:50001/postgresql/2019/07/29/postgresql-backup</id><content type="html" xml:base="http://0.0.0.0:50001/postgresql/2019/07/29/postgresql-backup.html">&lt;p&gt;​&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.6">Jekyll</generator><link href="http://0.0.0.0:50001/feed.xml" rel="self" type="application/atom+xml" /><link href="http://0.0.0.0:50001/" rel="alternate" type="text/html" /><updated>2019-08-01T05:52:57+00:00</updated><id>http://0.0.0.0:50001/feed.xml</id><title type="html">Devloper Chiha</title><subtitle>A Jekyll Theme Built For Developers</subtitle><author><name>Developer</name></author><entry><title type="html">PostgreSQL Backup</title><link href="http://0.0.0.0:50001/postgresql/2019/07/29/postgresql-backup.html" rel="alternate" type="text/html" title="PostgreSQL Backup" /><published>2019-07-29T18:30:00+00:00</published><updated>2019-07-29T18:30:00+00:00</updated><id>http://0.0.0.0:50001/postgresql/2019/07/29/postgresql-backup</id><content type="html" xml:base="http://0.0.0.0:50001/postgresql/2019/07/29/postgresql-backup.html">&lt;p&gt;​&lt;/p&gt;
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
@@ -40,7 +40,92 @@ wal_level = replica
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;pg_ctl restart
 pg_basebackup --pgdata=&quot;/data/PGDATABASE/backup&quot; --format=&quot;t&quot; -X fetch --gzip --progress --verbose --username=&quot;pgsys&quot; --port=&quot;5432&quot;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Chiha Park</name></author><category term="PostgreSQL" /><summary type="html">​ PostgreSQL 백업 PG_BASEBACKUP을 이용한 백업 /data/PGDATABASE/backup 경로에 백업 파일 저장 pgsys user를 이용한 백업 1. pg_hba.conf 에서 pgsys에게 replication 권한 설정 pg_hba.conf 파일에 가장 아래 한줄 추가 # TYPE DATABASE USER ADDRESS METHOD ... local replication pgsys trust 2. postgresql.conf 에서 wal 관련 설정 변경 max_wal_senders = 1 wal_level = replica 3. DB 재실행 및 pg_basebackup 실행 pg_ctl restart pg_basebackup --pgdata=&quot;/data/PGDATABASE/backup&quot; --format=&quot;t&quot; -X fetch --gzip --progress --verbose --username=&quot;pgsys&quot; --port=&quot;5432&quot;</summary></entry><entry><title type="html">PostgreSQL Installation</title><link href="http://0.0.0.0:50001/postgresql/2019/07/28/posgresql-install.html" rel="alternate" type="text/html" title="PostgreSQL Installation" /><published>2019-07-28T18:30:00+00:00</published><updated>2019-07-28T18:30:00+00:00</updated><id>http://0.0.0.0:50001/postgresql/2019/07/28/posgresql-install</id><content type="html" xml:base="http://0.0.0.0:50001/postgresql/2019/07/28/posgresql-install.html">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Chiha Park</name></author><category term="PostgreSQL" /><summary type="html">​ PostgreSQL 백업 PG_BASEBACKUP을 이용한 백업 /data/PGDATABASE/backup 경로에 백업 파일 저장 pgsys user를 이용한 백업 1. pg_hba.conf 에서 pgsys에게 replication 권한 설정 pg_hba.conf 파일에 가장 아래 한줄 추가 # TYPE DATABASE USER ADDRESS METHOD ... local replication pgsys trust 2. postgresql.conf 에서 wal 관련 설정 변경 max_wal_senders = 1 wal_level = replica 3. DB 재실행 및 pg_basebackup 실행 pg_ctl restart pg_basebackup --pgdata=&quot;/data/PGDATABASE/backup&quot; --format=&quot;t&quot; -X fetch --gzip --progress --verbose --username=&quot;pgsys&quot; --port=&quot;5432&quot;</summary></entry><entry><title type="html">PostgreSQL Recovery</title><link href="http://0.0.0.0:50001/postgresql/2019/07/29/postgresql-recovery.html" rel="alternate" type="text/html" title="PostgreSQL Recovery" /><published>2019-07-29T18:30:00+00:00</published><updated>2019-07-29T18:30:00+00:00</updated><id>http://0.0.0.0:50001/postgresql/2019/07/29/postgresql-recovery</id><content type="html" xml:base="http://0.0.0.0:50001/postgresql/2019/07/29/postgresql-recovery.html">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;postgresql-recovery&quot;&gt;PostgreSQL Recovery&lt;/h1&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;1-basetar-압축-해제&quot;&gt;1. base.tar 압축 해제&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;pg_basebackup을 tar 방식으로 Backup을 하면  base.tar 압축 파일이 생성된다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;tar -zxvf base.tar.gz -C /data/PGDATABASE/data/pg
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;2-user-tablespace-backup-압축-해제-및-symbolic-link-생성&quot;&gt;2. user tablespace backup 압축 해제 및 Symbolic link 생성&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;/data/PGDATABASE/data/pg/tablespace_map 확인&lt;/li&gt;
+  &lt;li&gt;Tablespace 별로 Path를 확인하여 해당 경로에 압축 해제 및 Tablespace 영역 Symbolic link 생성&lt;/li&gt;
+  &lt;li&gt;Ex) 16385 /data/PGDATABASE/TS01,   16387 /data/PGDATABASE/TS02&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;tar -zxvf 16385.tar.gz -C /data/PGDATABASE/TS01
+ln -s /data/PGDATABASE/TS01 /data/PGDATABASE/data/pg/pg_tblspc/
+
+tar -zxvf 16387.tar.gz -C /data/PGDATABASE/TS02
+ln -s /data/PGDATABASE/TS02 /data/PGDATABASE/data/pg/pg_tblspc/
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;3-wal-file-이동pg_xlog-및-symbolic-link-생성&quot;&gt;3. WAL file 이동(pg_xlog) 및 symbolic link 생성&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;pg_xlog 영역 분리&lt;/li&gt;
+  &lt;li&gt;혹시 남아 있을지 모를 pg_xlog 파일을 분리 된 pg_xlog 디렉토리 영역으로 복사&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;mv /data/PGDATABASE/data/pg/pg_xlog/* /data/PGDATABASE/pg_xlog
+rm -rf /data/PGDATABASE/data/pg/pg_xlog
+ln -s /data/PGDATABASE/pg_xlog /data/PGDATABASE/data/pg/pg_xlog
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;4-pitr특정-시간으로-복구를-원할-경우&quot;&gt;4. PITR(특정 시간으로 복구)를 원할 경우&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;백업 시점으로 복구를 원할 시에는 이 단계를 SKIP&lt;/li&gt;
+  &lt;li&gt;백업 시점 이후부터 돌아가고 싶은 시간까지의 archive 파일이 존재해야한다.&lt;/li&gt;
+  &lt;li&gt;Ex) 000000010000000000000003 000000010000000000000004는 archive 파일이라 가정&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;1-arch-파일-이동&quot;&gt;1. arch 파일 이동&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;mv 000000010000000000000003 000000010000000000000004 /data/PGDATABASE/arch
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;2-recoveryconf-파일-생성&quot;&gt;2. recovery.conf 파일 생성&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;vi /data/PGDATABASE/data/pg/recovery.conf&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;restore_command = 'cp /data/PGDATABASE/arch/%f %p'
+archive_cleanup_command = 'pg_archivecleanup /data/PGDATABASE/arch %r'
+recovery_target_time = '2019-07-30 12:30:10 EST'
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;5-postgresql-start&quot;&gt;5. PostgreSQL Start&lt;/h2&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;su - pgadmin -c 'pg_ctl start;'
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Chiha Park</name></author><category term="PostgreSQL" /><summary type="html">PostgreSQL Recovery 1. base.tar 압축 해제 pg_basebackup을 tar 방식으로 Backup을 하면 base.tar 압축 파일이 생성된다. tar -zxvf base.tar.gz -C /data/PGDATABASE/data/pg 2. user tablespace backup 압축 해제 및 Symbolic link 생성 /data/PGDATABASE/data/pg/tablespace_map 확인 Tablespace 별로 Path를 확인하여 해당 경로에 압축 해제 및 Tablespace 영역 Symbolic link 생성 Ex) 16385 /data/PGDATABASE/TS01, 16387 /data/PGDATABASE/TS02 tar -zxvf 16385.tar.gz -C /data/PGDATABASE/TS01 ln -s /data/PGDATABASE/TS01 /data/PGDATABASE/data/pg/pg_tblspc/ tar -zxvf 16387.tar.gz -C /data/PGDATABASE/TS02 ln -s /data/PGDATABASE/TS02 /data/PGDATABASE/data/pg/pg_tblspc/ 3. WAL file 이동(pg_xlog) 및 symbolic link 생성 pg_xlog 영역 분리 혹시 남아 있을지 모를 pg_xlog 파일을 분리 된 pg_xlog 디렉토리 영역으로 복사 mv /data/PGDATABASE/data/pg/pg_xlog/* /data/PGDATABASE/pg_xlog rm -rf /data/PGDATABASE/data/pg/pg_xlog ln -s /data/PGDATABASE/pg_xlog /data/PGDATABASE/data/pg/pg_xlog 4. PITR(특정 시간으로 복구)를 원할 경우 백업 시점으로 복구를 원할 시에는 이 단계를 SKIP 백업 시점 이후부터 돌아가고 싶은 시간까지의 archive 파일이 존재해야한다. Ex) 000000010000000000000003 000000010000000000000004는 archive 파일이라 가정 1. arch 파일 이동 mv 000000010000000000000003 000000010000000000000004 /data/PGDATABASE/arch 2. recovery.conf 파일 생성 vi /data/PGDATABASE/data/pg/recovery.conf restore_command = 'cp /data/PGDATABASE/arch/%f %p' archive_cleanup_command = 'pg_archivecleanup /data/PGDATABASE/arch %r' recovery_target_time = '2019-07-30 12:30:10 EST' 5. PostgreSQL Start su - pgadmin -c 'pg_ctl start;'</summary></entry><entry><title type="html">PostgreSQL Installation</title><link href="http://0.0.0.0:50001/postgresql/2019/07/28/posgresql-install.html" rel="alternate" type="text/html" title="PostgreSQL Installation" /><published>2019-07-28T18:30:00+00:00</published><updated>2019-07-28T18:30:00+00:00</updated><id>http://0.0.0.0:50001/postgresql/2019/07/28/posgresql-install</id><content type="html" xml:base="http://0.0.0.0:50001/postgresql/2019/07/28/posgresql-install.html">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
 &lt;h1 id=&quot;postgresql-설치&quot;&gt;PostgreSQL 설치&lt;/h1&gt;
 
