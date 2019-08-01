@@ -45,9 +45,10 @@ wal_level = replica
 
 <br>    
 
-### 3. pg_basebackup 실행
+### 3. DB 재실행 및 pg_basebackup 실행
 
 ```
+pg_ctl restart
 pg_basebackup --pgdata="/data/PGDATABASE/backup" --format="t" -X fetch --gzip --progress --verbose --username="pgsys" --port="5432"
 ```
 
