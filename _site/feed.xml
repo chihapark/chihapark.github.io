@@ -1,48 +1,124 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.6">Jekyll</generator><link href="http://0.0.0.0:50001/feed.xml" rel="self" type="application/atom+xml" /><link href="http://0.0.0.0:50001/" rel="alternate" type="text/html" /><updated>2019-08-01T05:52:57+00:00</updated><id>http://0.0.0.0:50001/feed.xml</id><title type="html">Devloper Chiha</title><subtitle>A Jekyll Theme Built For Developers</subtitle><author><name>Developer</name></author><entry><title type="html">PostgreSQL Backup</title><link href="http://0.0.0.0:50001/postgresql/2019/07/29/postgresql-backup.html" rel="alternate" type="text/html" title="PostgreSQL Backup" /><published>2019-07-29T18:30:00+00:00</published><updated>2019-07-29T18:30:00+00:00</updated><id>http://0.0.0.0:50001/postgresql/2019/07/29/postgresql-backup</id><content type="html" xml:base="http://0.0.0.0:50001/postgresql/2019/07/29/postgresql-backup.html">&lt;p&gt;​&lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Developer Chiha</title>
+    <description>A Jekyll Theme Built For Developers</description>
+    <link>http://0.0.0.0:50001/</link>
+    <atom:link href="http://0.0.0.0:50001/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Thu, 01 Aug 2019 23:51:16 +0000</pubDate>
+    <lastBuildDate>Thu, 01 Aug 2019 23:51:16 +0000</lastBuildDate>
+    <generator>Jekyll v3.8.6</generator>
+    
+      <item>
+        <title>Raw Device와 File System</title>
+        <description>&lt;p&gt;​&lt;/p&gt;
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
-&lt;h1 id=&quot;postgresql-백업&quot;&gt;PostgreSQL 백업&lt;/h1&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;pg_basebackup을-이용한-백업&quot;&gt;PG_BASEBACKUP을 이용한 백업&lt;/h2&gt;
+&lt;h1 id=&quot;raw-device와-file-system-차이&quot;&gt;Raw Device와 File System 차이&lt;/h1&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;/data/PGDATABASE/backup 경로에 백업 파일 저장&lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;pgsys user를 이용한 백업&lt;/p&gt;
-
-    &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+  &lt;li&gt;Storage Device를 Access 하는 방법에는 Block Device와 RAW Device로 구분&lt;/li&gt;
+  &lt;li&gt;Block Device의 Block은 파일시스템의 Block을 뜻함.&lt;/li&gt;
+  &lt;li&gt;Raw Device 위에 파일시스템이 얹어 있다고 보면 된다.&lt;/li&gt;
+  &lt;li&gt;OS는 어플리케이션의 IO 요구에 따라 파일 시스템에서 읽어 오느냐, RAW 디바이스(파일 시스템 보다는 더 하위레벨)에서 읽어 오느냐가 Acess방법에 의해 차이가 있다.&lt;/li&gt;
+  &lt;li&gt;Raw Device는 파일시스템이 없기 때문에 파일, 디렉토리, Access 컨트롤 등을 어플리케이션에서 직접 관리 해야 한다.&lt;/li&gt;
+  &lt;li&gt;Raw Device를 데이터베이스에서 사용할 때 자체적으로 블록과 익스텐트 등의 스토리 관리 개념을 가지고 있기 때문에 OS레벨에서의 물리적인 데이터 파일 관리만 하면 된다.&lt;/li&gt;
+  &lt;li&gt;데이터 베이스에서 Raw Device를 사용하더라도 물리적인 Device(DISK)에 데이터 파일형태로 위치해야 하기 때문에 볼륨매니저 같은 가상 스토리지 개념이 필요하다.&lt;/li&gt;
+  &lt;li&gt;일반적인 디스크 I/O
+    &lt;ul&gt;
+      &lt;li&gt;Application &amp;lt;-&amp;gt; Library Buffer &amp;lt;-&amp;gt; Operation System Cache &amp;lt;-&amp;gt; File System/Volume Manager &amp;lt;-&amp;gt; Device&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Raw Device
+    &lt;ul&gt;
+      &lt;li&gt;Application &amp;lt;-&amp;gt; Device&lt;/li&gt;
+    &lt;/ul&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3 id=&quot;1--pg_hbaconf-에서-pgsys에게-replication-권한-설정&quot;&gt;1.  pg_hba.conf 에서 pgsys에게 replication 권한 설정&lt;/h3&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;pg_hba.conf 파일에 가장 아래 한줄 추가
-
-# TYPE  DATABASE        USER            ADDRESS                 METHOD
-...
-local   replication     pgsys                                   trust
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;h1 id=&quot;file-system&quot;&gt;File System&lt;/h1&gt;
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
-&lt;h3 id=&quot;2-postgresqlconf-에서-wal-관련-설정-변경&quot;&gt;2. postgresql.conf 에서 wal 관련 설정 변경&lt;/h3&gt;
+&lt;h2 id=&quot;파일-시스템이란&quot;&gt;파일 시스템이란&lt;/h2&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;max_wal_senders = 1
-wal_level = replica
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;ul&gt;
+  &lt;li&gt;운영체제가 파티션이나 디스크에 파일들이 연속되기 하기 위해서 사용하는 방법이고 자료구조이다. 파일들이 디스크상에서 구성되는 방식이다. File System은 mount란 단계를 거쳐서 특정 Block Device를 사용할 수 있게 해주는 것이다.&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
-&lt;h3 id=&quot;3-db-재실행-및-pg_basebackup-실행&quot;&gt;3. DB 재실행 및 pg_basebackup 실행&lt;/h3&gt;
+&lt;h2 id=&quot;파일-시스템의-구조&quot;&gt;파일 시스템의 구조&lt;/h2&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;pg_ctl restart
-pg_basebackup --pgdata=&quot;/data/PGDATABASE/backup&quot; --format=&quot;t&quot; -X fetch --gzip --progress --verbose --username=&quot;pgsys&quot; --port=&quot;5432&quot;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Chiha Park</name></author><category term="PostgreSQL" /><summary type="html">​ PostgreSQL 백업 PG_BASEBACKUP을 이용한 백업 /data/PGDATABASE/backup 경로에 백업 파일 저장 pgsys user를 이용한 백업 1. pg_hba.conf 에서 pgsys에게 replication 권한 설정 pg_hba.conf 파일에 가장 아래 한줄 추가 # TYPE DATABASE USER ADDRESS METHOD ... local replication pgsys trust 2. postgresql.conf 에서 wal 관련 설정 변경 max_wal_senders = 1 wal_level = replica 3. DB 재실행 및 pg_basebackup 실행 pg_ctl restart pg_basebackup --pgdata=&quot;/data/PGDATABASE/backup&quot; --format=&quot;t&quot; -X fetch --gzip --progress --verbose --username=&quot;pgsys&quot; --port=&quot;5432&quot;</summary></entry><entry><title type="html">PostgreSQL Recovery</title><link href="http://0.0.0.0:50001/postgresql/2019/07/29/postgresql-recovery.html" rel="alternate" type="text/html" title="PostgreSQL Recovery" /><published>2019-07-29T18:30:00+00:00</published><updated>2019-07-29T18:30:00+00:00</updated><id>http://0.0.0.0:50001/postgresql/2019/07/29/postgresql-recovery</id><content type="html" xml:base="http://0.0.0.0:50001/postgresql/2019/07/29/postgresql-recovery.html">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/Filesystem.PNG&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-&lt;h1 id=&quot;postgresql-recovery&quot;&gt;PostgreSQL Recovery&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;li&gt;Boot Block : File System의 처음에 위치. OS가 초기화되거나 부팅될 때, 필요한 bootstrap 코드를 포함.&lt;/li&gt;
+  &lt;li&gt;Super Block: File System에 대한 모든 중요한 정보를 저장하는 곳. File System이 얼마나 큰지, 얼마나 많은 파일을 저장할 수 있는지, 자유 저장공간을 어디에서 찾아야 하는지 등의 다양한 정보를 포함하고 있다.&lt;/li&gt;
+  &lt;li&gt;inode list: 파일 시스템은 index node라는 형태의 정보로 저장된다. inode는 항목(파일,디렉토리, 심볼릭 링크) 자체의 이름을 제외하고는 다른 모든 파일시스템을 저장한다. 파일이름은 디렉토리에 저장되며 이는 inode의 포인터로 이용된다. Inode list는 inode들의 리스트이며, 관리자에 의해 그 크기가 변경될 수 있다. 파일 시스템의 모든 파일이나 디렉토리는 각기 단 하나의 inode에 의해서 표현된다.&lt;/li&gt;
+  &lt;li&gt;Data Block: 파일 데이터와 관리 데이터를 저장하고 있는 부분이다. 각각의 데이터 블록은 한번에, 단지 하나의 파일에만 할당될 수 있다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;raw-device&quot;&gt;Raw Device&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Raw Device는 파일 시스템이 set up 되지 않은 disk drive이다.&lt;/li&gt;
+  &lt;li&gt;데이터베이스와 같이 주로 자신들의 캐싱 시스템을 갖고 있는 경우에 서비스 프로그램에서 많이 사용한다.&lt;/li&gt;
+  &lt;li&gt;운영체제의 캐싱 시스템은 일반적인 상황에서는 성능에 지대한 영향을 미치지만 데이터베이스 등에서는 이미 자신의 방식으로 캐싱을 하기 때문에 두번의 캐싱으로 인해 부하가 생길 수 있다.&lt;/li&gt;
+  &lt;li&gt;운영체제가 지원하는 부분을 사용하지 않게 하기 위해서 raw device를 사용한다.&lt;/li&gt;
+  &lt;li&gt;두 대 이상의 machine과 이 machine들이 공유하고 있는 disk로 구성되는 경우, shared disk를 OS file system으로 구성하면 한쪽에서만 이를 볼 수 있고 동시에 access하는 것이 불가능하다. 그러므로 raw device를 사용해야 하며, raw device를 사용하면 OS를 거치지 않으므로 보다 빠른 Access를 기대할 수 있다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;장점&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Raw Device는 OS에 Mount 되지 않는 디스크이므로 OS 커널에 의해 Buffering이 되지 않고 User buffer과 device 간에 직접 data가 전송되므로 disk I/O 성능이 향상되고 CPU Overhead가 감소된다.&lt;/li&gt;
+  &lt;li&gt;OS File system의 Overhead를 피할 수 있다.&lt;/li&gt;
+  &lt;li&gt;OS buffer size를 줄일 수 있다.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;단점&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;Setup하기 어렵고 Backup 절차가 File System 보다 복잡하다.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Raw device와 OS file을 혼합하여 사용할 경우 OS File은 ulimit parameter의 size보다 작아야 한다. 따라서 ulimit을 초과하는 table들은 raw device를 사용하여야 한다.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;OS는 cylinder 0을 보호하지 못하기 때문에 cylinder 0에서 시작하면 안된다.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+</description>
+        <pubDate>Mon, 29 Jul 2019 18:30:00 +0000</pubDate>
+        <link>http://0.0.0.0:50001/linux/2019/07/29/rawdevicefilesystem.html</link>
+        <guid isPermaLink="true">http://0.0.0.0:50001/linux/2019/07/29/rawdevicefilesystem.html</guid>
+        
+        
+        <category>Linux</category>
+        
+      </item>
+    
+      <item>
+        <title>PostgreSQL Recovery</title>
+        <description>&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;postgresql-복구-recovery&quot;&gt;PostgreSQL 복구 (Recovery)&lt;/h1&gt;
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
@@ -125,9 +201,79 @@ recovery_target_time = '2019-07-30 12:30:10 EST'
 &lt;h2 id=&quot;5-postgresql-start&quot;&gt;5. PostgreSQL Start&lt;/h2&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;su - pgadmin -c 'pg_ctl start;'
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Chiha Park</name></author><category term="PostgreSQL" /><summary type="html">PostgreSQL Recovery 1. base.tar 압축 해제 pg_basebackup을 tar 방식으로 Backup을 하면 base.tar 압축 파일이 생성된다. tar -zxvf base.tar.gz -C /data/PGDATABASE/data/pg 2. user tablespace backup 압축 해제 및 Symbolic link 생성 /data/PGDATABASE/data/pg/tablespace_map 확인 Tablespace 별로 Path를 확인하여 해당 경로에 압축 해제 및 Tablespace 영역 Symbolic link 생성 Ex) 16385 /data/PGDATABASE/TS01, 16387 /data/PGDATABASE/TS02 tar -zxvf 16385.tar.gz -C /data/PGDATABASE/TS01 ln -s /data/PGDATABASE/TS01 /data/PGDATABASE/data/pg/pg_tblspc/ tar -zxvf 16387.tar.gz -C /data/PGDATABASE/TS02 ln -s /data/PGDATABASE/TS02 /data/PGDATABASE/data/pg/pg_tblspc/ 3. WAL file 이동(pg_xlog) 및 symbolic link 생성 pg_xlog 영역 분리 혹시 남아 있을지 모를 pg_xlog 파일을 분리 된 pg_xlog 디렉토리 영역으로 복사 mv /data/PGDATABASE/data/pg/pg_xlog/* /data/PGDATABASE/pg_xlog rm -rf /data/PGDATABASE/data/pg/pg_xlog ln -s /data/PGDATABASE/pg_xlog /data/PGDATABASE/data/pg/pg_xlog 4. PITR(특정 시간으로 복구)를 원할 경우 백업 시점으로 복구를 원할 시에는 이 단계를 SKIP 백업 시점 이후부터 돌아가고 싶은 시간까지의 archive 파일이 존재해야한다. Ex) 000000010000000000000003 000000010000000000000004는 archive 파일이라 가정 1. arch 파일 이동 mv 000000010000000000000003 000000010000000000000004 /data/PGDATABASE/arch 2. recovery.conf 파일 생성 vi /data/PGDATABASE/data/pg/recovery.conf restore_command = 'cp /data/PGDATABASE/arch/%f %p' archive_cleanup_command = 'pg_archivecleanup /data/PGDATABASE/arch %r' recovery_target_time = '2019-07-30 12:30:10 EST' 5. PostgreSQL Start su - pgadmin -c 'pg_ctl start;'</summary></entry><entry><title type="html">PostgreSQL Installation</title><link href="http://0.0.0.0:50001/postgresql/2019/07/28/posgresql-install.html" rel="alternate" type="text/html" title="PostgreSQL Installation" /><published>2019-07-28T18:30:00+00:00</published><updated>2019-07-28T18:30:00+00:00</updated><id>http://0.0.0.0:50001/postgresql/2019/07/28/posgresql-install</id><content type="html" xml:base="http://0.0.0.0:50001/postgresql/2019/07/28/posgresql-install.html">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h1 id=&quot;postgresql-설치&quot;&gt;PostgreSQL 설치&lt;/h1&gt;
+</description>
+        <pubDate>Mon, 29 Jul 2019 18:30:00 +0000</pubDate>
+        <link>http://0.0.0.0:50001/postgresql/2019/07/29/postgresql-recovery.html</link>
+        <guid isPermaLink="true">http://0.0.0.0:50001/postgresql/2019/07/29/postgresql-recovery.html</guid>
+        
+        
+        <category>PostgreSQL</category>
+        
+      </item>
+    
+      <item>
+        <title>PostgreSQL Backup</title>
+        <description>&lt;p&gt;​&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;postgresql-백업-backup&quot;&gt;PostgreSQL 백업 (Backup)&lt;/h1&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;pg_basebackup을-이용한-백업&quot;&gt;PG_BASEBACKUP을 이용한 백업&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;/data/PGDATABASE/backup 경로에 백업 파일 저장&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;pgsys user를 이용한 백업&lt;/p&gt;
+
+    &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;1--pg_hbaconf-에서-pgsys에게-replication-권한-설정&quot;&gt;1.  pg_hba.conf 에서 pgsys에게 replication 권한 설정&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;pg_hba.conf 파일에 가장 아래 한줄 추가
+
+# TYPE  DATABASE        USER            ADDRESS                 METHOD
+...
+local   replication     pgsys                                   trust
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;2-postgresqlconf-에서-wal-관련-설정-변경&quot;&gt;2. postgresql.conf 에서 wal 관련 설정 변경&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;max_wal_senders = 1
+wal_level = replica
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;3-db-재실행-및-pg_basebackup-실행&quot;&gt;3. DB 재실행 및 pg_basebackup 실행&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;pg_ctl restart
+pg_basebackup --pgdata=&quot;/data/PGDATABASE/backup&quot; --format=&quot;t&quot; -X fetch --gzip --progress --verbose --username=&quot;pgsys&quot; --port=&quot;5432&quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+</description>
+        <pubDate>Mon, 29 Jul 2019 18:30:00 +0000</pubDate>
+        <link>http://0.0.0.0:50001/postgresql/2019/07/29/postgresql-backup.html</link>
+        <guid isPermaLink="true">http://0.0.0.0:50001/postgresql/2019/07/29/postgresql-backup.html</guid>
+        
+        
+        <category>PostgreSQL</category>
+        
+      </item>
+    
+      <item>
+        <title>PostgreSQL Installation</title>
+        <description>&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;postgresql-설치-install&quot;&gt;PostgreSQL 설치 (install)&lt;/h1&gt;
 
 &lt;ul&gt;
   &lt;li&gt;PostgreSQL 9.6 버전을 기준으로 Centos 7.4에 설치합니다.&lt;/li&gt;
@@ -240,4 +386,17 @@ create tablespace TBS01 OWNER &quot;pgadmin&quot; location '/data/PGDATABASE/TS0
 exit로 bash로 나간 후
 # Database 생성
 createdb -p 5432 -D tbs01 PGDATABASE -O pgadmin
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Chiha Park</name></author><category term="PostgreSQL" /><summary type="html">PostgreSQL 설치 PostgreSQL 9.6 버전을 기준으로 Centos 7.4에 설치합니다. DB Engine 디렉토리 : /PG/PGDATABASE DB DATA 디렉토리: /data 1. PostgreSQL 파일 다운로드 https://www.enterprisedb.com/download-postgresql-binaries 사이트에서 binary 파일 다운로드 ​ 2. 디렉토리 생성 mkdir -p /PG/PGDATABASE # PostgreSQL Engine 영역 mkdir -p /data/PGDATABASE/data/pg # PostgreSQL Data 영역 mkdir -p /data/PGDATABASE/pg_xlog # PostgreSQL xlog 영역 (10버전 이후는 wal 영역) mkdir -p /data/PGDATABASE/arch # PostgesSQL Archiving 영역 mkdir -p /data/PGDATABASE/TS01 # PostgreSQL Table Space 영역 3. Kernel Parameter 설정 RAM 16GB 기준 sysctl -w kernel.shmmax=17179869184 # 공유 메모리 세그먼트의 최대 크기(바이트 단위)를 정의 sysctl -w kernel.shmall=4194304 # 특정 시점에 시스템에서 사용 가능한 공유 메모리의 최대 크기 (페이지 단위)를 설정하는데 사용 sysctl -w vm.overcommit_memory=2 # Memory Overcommit 을 방지 ​ 4. OS User 생성 및 디렉토리 권한 설정 useradd pgadmin # USER 추가 chown -R pgadmin /PG/PGDATABASE /data/PGDATABASE usermod -d /PG/PGDATABASE pgadmin su - pgadmin vi ~/.bash_profile export PGHOME=/PG/PGDATABASE/pgsql export PATH=$PGHOME/bin:$PATH export PGDATA=/data/PGDATABASE/data/pg export PGDATABASE=PGDATABASE export PGUSER=pgsys export PGPORT=5432 export PGLOCALEDIR=$PGHOME/share/locale 저장 후 source ~/.bash_profile ​ 5. DATA 영역 DISK 할당 DATA 영역에 추가 디스크 할당을 하지 않을 시에는 SKIP exit # root 권한으로 돌아와서 vgcreate datavg /dev/sdb # Volume Group 생성 (DATA 영역 디스크가 sdb로 붙어 있을 경우) lvcreate -l 100%FREE -n data datavg # Volume Group에 남은 영역 LV에 지정 mkfs.xfs /dev/datavg/data # CentOS 7버전이므로 xfs로 FileSystem 설치 mount -t xfs /dev/datavg/data /data # /data Path에 Mount df -h # data PATH에 MOUNT 되었는지 확인 ​ 6. PostgreSQL 설치 tar -zxvf postgresql-9.6.14-2-linux-x64-binaries.tar.gz -C /PG/PGDATABASE ​ 7. Initdb 실행 (DB USER로 실행) initdb --pgdata=/data/PGDATABASE/data/pg --xlogdir=/data/PGDATABASE/pg_xlog --encoding='UTF8' --locale='C' --username='pgsys' ​ 8. PostgreSQL START (DB USER로 실행) pg_ctl start ​ 9. PostgreSQL 기본 Setting (DB USER로 실행) psql -d postgres # USER 생성 CREATE USER pgadmin WITH SUPERUSER CREATEDB CREATEROLE INHERIT LOGIN PASSWORD 'password001!'; # Tablespace 생성 create tablespace TBS01 OWNER &quot;pgadmin&quot; location '/data/PGDATABASE/TS01'; exit로 bash로 나간 후 # Database 생성 createdb -p 5432 -D tbs01 PGDATABASE -O pgadmin</summary></entry></feed>
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+</description>
+        <pubDate>Sun, 28 Jul 2019 18:30:00 +0000</pubDate>
+        <link>http://0.0.0.0:50001/postgresql/2019/07/28/posgresql-install.html</link>
+        <guid isPermaLink="true">http://0.0.0.0:50001/postgresql/2019/07/28/posgresql-install.html</guid>
+        
+        
+        <category>PostgreSQL</category>
+        
+      </item>
+    
+  </channel>
+</rss>
